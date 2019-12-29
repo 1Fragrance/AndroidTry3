@@ -37,9 +37,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1.5"
-            android:maxLength="9"
+            android:layout_weight="1.65"
             android:background="@drawable/bg_textview"
+            android:textSize="22sp"
+            android:maxLength="20"
             android:id="@+id/text_input"/>
 
         <GridLayout
