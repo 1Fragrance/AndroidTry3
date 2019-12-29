@@ -41,7 +41,8 @@
             android:background="@drawable/bg_textview"
             android:textSize="22sp"
             android:maxLength="20"
-            android:id="@+id/text_input"/>
+            android:id="@+id/text_input"
+            android:textDirection="rtl"/>
 
         <GridLayout
             android:layout_width="match_parent"

@@ -19,4 +19,5 @@
     <string name="button_zero">0</string>
     <string name="button_dot">.</string>
     <string name="button_equal">=</string>
+    <string name="error_message">Error, press clear</string>
 </resources>
