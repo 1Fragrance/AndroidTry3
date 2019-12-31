@@ -10,91 +10,162 @@ public class MainActivity extends Activity {
 
     private double firstValue = Double.NaN;
     private double secondValue = Double.NaN;
-    private int actionTypeId;
     private TextView textInput;
-    private boolean isErrorRised = false;
+    private Operators operator;
+    private Button dotButton;
 
-    private int[] numbers = {
-            R.id.button_one,
-            R.id.button_two,
-            R.id.button_three,
-            R.id.button_four,
-            R.id.button_five,
-            R.id.button_six,
-            R.id.button_seven,
-            R.id.button_eight,
-            R.id.button_nine,
-            R.id.button_zero,
-    };
-
-    private int[] operators = {
-            R.id.button_sum,
-            R.id.button_subtract,
-            R.id.button_multiple,
-            R.id.button_division,
-            R.id.button_percentage,
-    };
-
-    private int[] commands = {
-            R.id.button_c,
-            R.id.button_clear,
-            R.id.button_dot,
-            R.id.button_equal
-    };
+    private enum Operators  {
+            SUM,
+            SUBTRACT,
+            MULTIPLY,
+            DIVIDE,
+            PERCENTAGE,
+        // TODO: Add some
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initializeHandlers();
-    }
-
-    private void setNumberHandler(final Button button) {
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!isErrorRised) {
-                    textInput.append(button.getText());
-                }
-            }
-        });
-    }
-
-    public void initializeHandlers() {
 
         textInput = findViewById(R.id.text_input);
+        dotButton = findViewById(R.id.button_dot);
+        setButtonHandlers();
+    }
 
-        // NOTE: Set handlers for numbers pressing
-        for (int i = 0; i < numbers.length; i++) {
-            setNumberHandler((Button) findViewById(numbers[i]));
+    private void numberHandler(View view) {
+        Button button = (Button) view;
+
+        if (button.getText().equals(".") || textInput.getText().toString().contains(".")) {
+            dotButton.setEnabled(false);
         }
+        textInput.append(button.getText() + "");
+    }
 
-        // NOTE: Set handlers for operators
-        for (int v = 0; v < operators.length; v++) {
-            final int finalV = v;
-            findViewById(operators[v]).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    handleClick(finalV);
-                }
-            });
+    public void operatorHandler(Operators inputOperator) {
+        firstValue = Double.parseDouble(textInput.getText().toString());
+        textInput.setText("");
+        dotButton.setEnabled(true);
+        operator = inputOperator;
+    }
+
+    public void equalHandler(View view) {
+        secondValue = Double.parseDouble(textInput.getText().toString());
+        dotButton.setEnabled(true);
+
+        switch (operator) {
+            case SUM:
+                firstValue += secondValue;
+                break;
+            case SUBTRACT:
+                firstValue -= secondValue;
+                break;
+            case MULTIPLY:
+                firstValue *= secondValue;
+                break;
+            case DIVIDE:
+                firstValue /= secondValue;
+                break;
+
+            // TODO : ADD SINCOS% etc
+            default:
+                firstValue = secondValue;
         }
+        textInput.setText(firstValue + "");
+    }
 
-        // NOTE: Set handler for "c" button
-        findViewById(commands[0]).setOnClickListener(new View.OnClickListener() {
+    private void setButtonHandlers() {
+        // NOTE: Numbers
+        findViewById(R.id.button_zero).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (textInput.length() > 0 && !isErrorRised) {
+                numberHandler(v);
+            }
+        });
+        findViewById(R.id.button_one).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                numberHandler(v);
+            }
+        });
+        findViewById(R.id.button_two).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                numberHandler(v);
+            }
+        });
+        findViewById(R.id.button_three).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                numberHandler(v);
+            }
+        });
+        findViewById(R.id.button_four).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                numberHandler(v);
+            }
+        });
+        findViewById(R.id.button_five).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                numberHandler(v);
+            }
+        });
+        findViewById(R.id.button_six).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                numberHandler(v);
+            }
+        });
+        findViewById(R.id.button_seven).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                numberHandler(v);
+            }
+        });
+        findViewById(R.id.button_eight).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                numberHandler(v);
+            }
+        });
+        findViewById(R.id.button_nine).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                numberHandler(v);
+            }
+        });
+        findViewById(R.id.button_dot).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                numberHandler(v);
+            }
+        });
+
+        // NOTE: Equal
+        findViewById(R.id.button_equal).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                equalHandler(v);
+            }
+        });
+
+        // NOTE: Commands
+        // Set handler for "c" button
+        findViewById(R.id.button_c).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(textInput.length() > 0) {
                     textInput.setText(textInput.getText().toString().substring(0, textInput.length() - 1));
                 }
             }
         });
 
         // NOTE: Set handler for "clear" button
-        findViewById(commands[1]).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.button_clear).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isErrorRised = false;
                 textInput.setText("");
 
                 firstValue = Double.NaN;
@@ -102,84 +173,35 @@ public class MainActivity extends Activity {
             }
         });
 
-        // NOTE: Set handler for "dot" button
-        findViewById(commands[2]).setOnClickListener(new View.OnClickListener() {
+        // NOTE: Operators
+        findViewById(R.id.button_sum).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String buttonText = ((Button) v).getText().toString();
-                String text = textInput.getText().toString();
-
-                if (!text.isEmpty() && !text.substring(textInput.length() - 1).equals(buttonText) && !isErrorRised) {
-                    textInput.append(buttonText);
-                }
+                operatorHandler(Operators.SUM);
             }
         });
 
-        // NOTE: Set handler for "equal" button
-        findViewById(commands[3]).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.button_subtract).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                if(!isErrorRised) {
-                    performCalculating();
-                    //binding.infoTextView.setText(binding.infoTextView.getText().toString() +
-                    //       decimalFormat.format(valueTwo) + " = " + decimalFormat.format(valueOne));
-                    firstValue = Double.NaN;
-                    actionTypeId = 5;
-                }
+            public void onClick(View v) {
+                operatorHandler(Operators.SUBTRACT);
             }
         });
-    }
 
-    private void handleClick(int actionTypeId) {
-        performCalculating();
-        this.actionTypeId = actionTypeId;
-        // TODO: log
-        //binding.infoTextView.setText(binding.infoTextView.getText().toString() + decimalFormat.format(valueTwo) + " = " + decimalFormat.format(valueOne));
-        textInput.setText("");
-    }
-
-    private void performCalculating() {
-        try {
-            if (!Double.isNaN(firstValue)) {
-                secondValue = Double.parseDouble(textInput.getText().toString());
-                textInput.setText(null);
-
-                switch (actionTypeId) {
-                    // NOTE: Sum
-                    case 0: {
-                        firstValue += secondValue;
-                        break;
-                    }
-                    // NOTE: Subtract
-                    case 1: {
-                        firstValue -= secondValue;
-                        break;
-                    }
-                    // NOTE: Multiple
-                    case 2: {
-                        firstValue *= secondValue;
-                        break;
-                    }
-                    // NOTE: Division
-                    case 3: {
-                        firstValue /= secondValue;
-                        break;
-                    }
-                    case 4: {
-                        firstValue /= 100;
-                        break;
-                    }
-                }
-            } else {
-
-                firstValue = Double.parseDouble(textInput.getText().toString());
+        findViewById(R.id.button_multiple).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                operatorHandler(Operators.MULTIPLY);
             }
-        } catch (Exception ex) {
-            textInput.setText(getResources().getString(R.string.error_message));
-            isErrorRised = true;
-        }
+        });
+
+        findViewById(R.id.button_division).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                operatorHandler(Operators.DIVIDE);
+            }
+        });
     }
 }
-
 
 
