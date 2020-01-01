@@ -10,38 +10,23 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ScrollView
+        <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:textDirection="rtl">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="What is Lorem Ipsum"
-                    android:textSize="20sp"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="What is Lorem Ipsum"
-                    android:textSize="20sp"/>
-            </LinearLayout>
-        </ScrollView>
+            android:layout_weight="1"
+            android:id="@+id/history"
+            android:transcriptMode="alwaysScroll"
+            android:stackFromBottom="true">
+        </ListView>
 
         <TextView
+            android:id="@+id/text_input"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1.65"
             android:background="@drawable/bg_textview"
-            android:textSize="22sp"
             android:maxLength="20"
-            android:id="@+id/text_input" />
+            android:textSize="22sp" />
 
         <GridLayout
             android:layout_width="match_parent"
@@ -51,54 +36,55 @@
             android:rowCount="5">
 
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:text="@string/button_negation"
-                android:layout_gravity="fill"
                 android:id="@+id/button_negation"
-                android:background="@drawable/bg_button"
-                />
-            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:text="@string/button_clear"
                 android:layout_gravity="fill"
+                android:background="@drawable/bg_button"
+                android:text="@string/button_negation" />
+
+            <Button
                 android:id="@+id/button_clear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnSpan="2"
+                android:layout_columnWeight="1"
+                android:layout_gravity="fill"
                 android:background="@drawable/bg_button"
-                android:layout_columnSpan="2"/>
+                android:text="@string/button_clear" />
+
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:text="@string/button_division"
-                android:layout_gravity="fill"
                 android:id="@+id/button_division"
-                android:background="@drawable/bg_button"/>
-
-            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:text="@string/button_seven"
                 android:layout_gravity="fill"
+                android:background="@drawable/bg_button"
+                android:text="@string/button_division" />
+
+            <Button
                 android:id="@+id/button_seven"
-                android:background="@drawable/bg_button"/>
-
-            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:text="@string/button_eight"
                 android:layout_gravity="fill"
+                android:background="@drawable/bg_button"
+                android:text="@string/button_seven" />
+
+            <Button
                 android:id="@+id/button_eight"
-                android:background="@drawable/bg_button"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_gravity="fill"
+                android:background="@drawable/bg_button"
+                android:text="@string/button_eight" />
 
             <Button
                 android:id="@+id/button_nine"
@@ -109,35 +95,36 @@
                 android:layout_gravity="fill"
                 android:background="@drawable/bg_button"
                 android:text="@string/button_nine" />
+
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:text="@string/button_multiple"
-                android:layout_gravity="fill"
                 android:id="@+id/button_multiple"
-                android:background="@drawable/bg_button"/>
-
-            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:text="@string/button_four"
                 android:layout_gravity="fill"
+                android:background="@drawable/bg_button"
+                android:text="@string/button_multiple" />
+
+            <Button
                 android:id="@+id/button_four"
-                android:background="@drawable/bg_button"/>
-
-            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:text="@string/button_five"
                 android:layout_gravity="fill"
+                android:background="@drawable/bg_button"
+                android:text="@string/button_four" />
+
+            <Button
                 android:id="@+id/button_five"
-                android:background="@drawable/bg_button"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_gravity="fill"
+                android:background="@drawable/bg_button"
+                android:text="@string/button_five" />
 
             <Button
                 android:id="@+id/button_six"
@@ -149,65 +136,65 @@
                 android:text="@string/button_six" />
 
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:text="@string/button_subtract"
-                android:layout_gravity="fill"
                 android:id="@+id/button_subtract"
-                android:background="@drawable/bg_button"/>
-
-            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:text="@string/button_one"
                 android:layout_gravity="fill"
+                android:background="@drawable/bg_button"
+                android:text="@string/button_subtract" />
+
+            <Button
                 android:id="@+id/button_one"
-                android:background="@drawable/bg_button"/>
-
-            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:text="@string/button_two"
                 android:layout_gravity="fill"
+                android:background="@drawable/bg_button"
+                android:text="@string/button_one" />
+
+            <Button
                 android:id="@+id/button_two"
-                android:background="@drawable/bg_button"/>
-
-            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:text="@string/button_three"
                 android:layout_gravity="fill"
+                android:background="@drawable/bg_button"
+                android:text="@string/button_two" />
+
+            <Button
                 android:id="@+id/button_three"
-                android:background="@drawable/bg_button"/>
-
-            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:text="@string/button_sum"
                 android:layout_gravity="fill"
+                android:background="@drawable/bg_button"
+                android:text="@string/button_three" />
+
+            <Button
                 android:id="@+id/button_sum"
-                android:background="@drawable/bg_button"/>
-
-            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:text="@string/button_zero"
-                android:layout_columnSpan="2"
                 android:layout_gravity="fill"
+                android:background="@drawable/bg_button"
+                android:text="@string/button_sum" />
+
+            <Button
                 android:id="@+id/button_zero"
-                android:background="@drawable/bg_button"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnSpan="2"
+                android:layout_columnWeight="1"
+                android:layout_gravity="fill"
+                android:background="@drawable/bg_button"
+                android:text="@string/button_zero" />
 
             <Button
                 android:id="@+id/button_dot"
@@ -221,14 +208,14 @@
                 android:text="@string/button_dot" />
 
             <Button
+                android:id="@+id/button_equal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:text="@string/button_equal"
                 android:layout_gravity="fill"
-                android:id="@+id/button_equal"
-                android:background="@drawable/bg_button"/>
+                android:background="@drawable/bg_button"
+                android:text="@string/button_equal" />
         </GridLayout>
     </LinearLayout>
 

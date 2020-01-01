@@ -6,6 +6,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import java.util.ArrayList;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 public class MainActivity extends Activity {
 
@@ -18,6 +21,9 @@ public class MainActivity extends Activity {
     private TextView textInput;
     private Operators operator;
     private Button dotButton;
+
+    private ArrayList<String> historyList;
+    private ArrayAdapter<String> historyAdapter;
 
     private enum Operators {
         SUM,
@@ -35,8 +41,38 @@ public class MainActivity extends Activity {
 
         textInput = findViewById(R.id.text_input);
         dotButton = findViewById(R.id.button_dot);
+
+        historyList = new ArrayList<>();
+        historyAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, historyList);
+        ListView listView = findViewById(R.id.history);
+        listView.setAdapter(historyAdapter);
+
         resetCalc();
         setButtonHandlers();
+    }
+
+    private void logHistory() {
+
+        String operation;
+        switch (operator) {
+            case SUM:
+                operation = getResources().getString(R.string.button_sum);
+                break;
+            case SUBTRACT:
+                operation = getResources().getString(R.string.button_subtract);
+                break;
+            case MULTIPLY:
+                operation = getResources().getString(R.string.button_multiple);
+                break;
+            case DIVIDE:
+                operation = getResources().getString(R.string.button_division);
+                break;
+            default:
+                operation = " ";
+        }
+        String str = firstValue + " " + operation + " " + secondValue;
+        historyList.add(str);
+        historyAdapter.notifyDataSetChanged();
     }
 
     private double getInputValue() {
@@ -116,6 +152,7 @@ public class MainActivity extends Activity {
             Log.println(Log.INFO, "*** second: ", Double.toString(secondValue));
             Log.println(Log.INFO, "*** result: ", Double.toString(result));
 
+            logHistory();
             textInput.setText(Double.toString(result));
         }
     }
@@ -228,7 +265,6 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 resetCalc();
-                dotButton.setEnabled(false);
             }
         });
 
