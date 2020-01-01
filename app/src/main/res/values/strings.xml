@@ -1,8 +1,7 @@
 <resources>
     <string name="app_name">AndroidTry3</string>
     <string name="button_clear">clear</string>
-    <string name="button_c">c</string>
-    <string name="button_percentage">%</string>
+    <string name="button_negation">+-</string>
     <string name="button_division">/</string>
     <string name="button_seven">7</string>
     <string name="button_eight">8</string>

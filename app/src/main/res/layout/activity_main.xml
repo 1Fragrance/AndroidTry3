@@ -41,8 +41,7 @@
             android:background="@drawable/bg_textview"
             android:textSize="22sp"
             android:maxLength="20"
-            android:id="@+id/text_input"
-            android:textDirection="rtl"/>
+            android:id="@+id/text_input" />
 
         <GridLayout
             android:layout_width="match_parent"
@@ -56,31 +55,21 @@
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
+                android:text="@string/button_negation"
+                android:layout_gravity="fill"
+                android:id="@+id/button_negation"
+                android:background="@drawable/bg_button"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
                 android:text="@string/button_clear"
                 android:layout_gravity="fill"
                 android:id="@+id/button_clear"
-                android:background="@drawable/bg_button"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:text="@string/button_c"
-                android:layout_gravity="fill"
-                android:id="@+id/button_c"
-                android:background="@drawable/bg_button"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:text="@string/button_percentage"
-                android:layout_gravity="fill"
-                android:id="@+id/button_percentage"
-                android:background="@drawable/bg_button"/>
-
+                android:background="@drawable/bg_button"
+                android:layout_columnSpan="2"/>
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -221,15 +210,15 @@
                 android:background="@drawable/bg_button"/>
 
             <Button
+                android:id="@+id/button_dot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:text="@string/button_dot"
-                android:layout_gravity="fill"
                 android:layout_column="2"
-                android:id="@+id/button_dot"
-                android:background="@drawable/bg_button"/>
+                android:layout_columnWeight="1"
+                android:layout_gravity="fill"
+                android:background="@drawable/bg_button"
+                android:text="@string/button_dot" />
 
             <Button
                 android:layout_width="wrap_content"
