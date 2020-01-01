@@ -26,6 +26,7 @@ public class MainActivity extends Activity {
     private ArrayList<String> historyList;
     private ArrayAdapter<String> historyAdapter;
 
+    // NOTE: List of available operators
     private enum Operators {
         SUM,
         SUBTRACT,
@@ -47,6 +48,7 @@ public class MainActivity extends Activity {
         }
     }
 
+    // NOTE: Activity initialize logic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +66,7 @@ public class MainActivity extends Activity {
         setButtonHandlers();
     }
 
+    // NOTE: Save activity state before it was destroyed
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -82,6 +85,7 @@ public class MainActivity extends Activity {
         outState.putString("operator", operator.toString());
     }
 
+    // NOTE: Restore activity state from bundle
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
@@ -103,15 +107,18 @@ public class MainActivity extends Activity {
         operator = Operators.valueOf(savedInstanceState.getString("operator"));
     }
 
+    // NOTE: log result to the history list
     private void logHistory() {
         historyList.add(Double.toString(result));
         historyAdapter.notifyDataSetChanged();
     }
 
+    // NOTE: Convert TextView string value to double
     private double getInputValue() {
         return Double.parseDouble((textInput.getText().toString()).replace(",", "."));
     }
 
+    // NOTE: Handler for number buttons
     private void numberHandler(View view) {
         if(isErrorState) {
             return;
@@ -132,6 +139,7 @@ public class MainActivity extends Activity {
         textInput.append(button.getText() + "");
     }
 
+    // NOTE: Handler for operations
     public void operatorHandler(Operators inputOperator) {
         if(isErrorState) {
             return;
@@ -147,6 +155,7 @@ public class MainActivity extends Activity {
         operator = inputOperator;
     }
 
+    // NOTE: Handler for operations which is not needed in second value
     public void instantOperationHandler() {
         if(isErrorState) {
             return;
@@ -187,6 +196,7 @@ public class MainActivity extends Activity {
         }
     }
 
+    // Note: Equal button handler
     public void equalHandler(View view) {
         if (textInput.length() > 0 && !isErrorState) {
             if (isRepeatableOperation) {
@@ -230,6 +240,7 @@ public class MainActivity extends Activity {
         }
     }
 
+    // Note: Reset calc state
     private void resetCalc() {
         textInput.setText("");
         firstValue = 0;
@@ -241,6 +252,7 @@ public class MainActivity extends Activity {
         dotButton.setEnabled(false);
     }
 
+    // Note: Set buttons handlers
     private void setButtonHandlers() {
         // NOTE: Numbers
         findViewById(R.id.button_zero).setOnClickListener(new View.OnClickListener() {
