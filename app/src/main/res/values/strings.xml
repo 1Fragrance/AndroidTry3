@@ -19,4 +19,13 @@
     <string name="button_dot">.</string>
     <string name="button_equal">=</string>
     <string name="error_message">Error, press clear</string>
+    <string name="button_tg">Tg</string>
+    <string name="button_sin">Sin</string>
+    <string name="button_cos">Cos</string>
+    <string name="button_ctg">Ctg</string>
+    <string name="button_second_root">√</string>
+    <string name="button_third_root"><![CDATA[<p>√<sup>3</sup></p>]]></string>
+    <string name="button_second_grade"><![CDATA[<p>X<sup>2</sup></p>]]></string>
+    <string name="button_third_grade"><![CDATA[<p>X<sup>3</sup></p>]]></string>
+
 </resources>

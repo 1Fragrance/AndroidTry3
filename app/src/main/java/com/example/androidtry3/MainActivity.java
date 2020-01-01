@@ -2,6 +2,7 @@ package com.example.androidtry3;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -30,8 +31,20 @@ public class MainActivity extends Activity {
         SUBTRACT,
         MULTIPLY,
         DIVIDE,
-        NONE
-        // TODO: Add some
+        NONE,
+        THIRD_ROOT,
+        SECOND_ROOT,
+        THIRD_GRADE,
+        SECOND_GRADE,
+        SIN,
+        COS,
+        TG,
+        CTG;
+
+        @Override
+        public String toString() {
+            return this.name();
+        }
     }
 
     @Override
@@ -51,27 +64,47 @@ public class MainActivity extends Activity {
         setButtonHandlers();
     }
 
-    private void logHistory() {
-
-        String operation;
-        switch (operator) {
-            case SUM:
-                operation = getResources().getString(R.string.button_sum);
-                break;
-            case SUBTRACT:
-                operation = getResources().getString(R.string.button_subtract);
-                break;
-            case MULTIPLY:
-                operation = getResources().getString(R.string.button_multiple);
-                break;
-            case DIVIDE:
-                operation = getResources().getString(R.string.button_division);
-                break;
-            default:
-                operation = " ";
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putDouble("firstValue", firstValue);
+        outState.putDouble("secondValue", secondValue);
+        if(result != null) {
+            outState.putDouble("result", result);
         }
-        String str = firstValue + " " + operation + " " + secondValue;
-        historyList.add(str);
+        outState.putBoolean("isErrorState", isErrorState);
+        outState.putBoolean("isRepeatableOperation", isRepeatableOperation);
+
+        ArrayList<String> tempList = new ArrayList<>(historyList);
+        outState.putStringArrayList("historyList", tempList);
+
+        outState.putString("textInput", textInput.getText().toString());
+        outState.putString("operator", operator.toString());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        firstValue = savedInstanceState.getDouble("firstValue");
+        secondValue = savedInstanceState.getDouble("secondValue");
+        result = savedInstanceState.getDouble("result");
+        isErrorState = savedInstanceState.getBoolean("isErrorState");
+        isRepeatableOperation = savedInstanceState.getBoolean("isRepeatableOperation");
+
+        historyList = savedInstanceState.getStringArrayList("historyList");
+        if(historyList != null) {
+            historyAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, historyList);
+            ListView listView = findViewById(R.id.history);
+            listView.setAdapter(historyAdapter);
+        }
+
+        textInput.setText(savedInstanceState.getString("textInput"));
+        operator = Operators.valueOf(savedInstanceState.getString("operator"));
+    }
+
+    private void logHistory() {
+        historyList.add(Double.toString(result));
         historyAdapter.notifyDataSetChanged();
     }
 
@@ -112,6 +145,46 @@ public class MainActivity extends Activity {
         }
         isRepeatableOperation = false;
         operator = inputOperator;
+    }
+
+    public void instantOperationHandler() {
+        if(isErrorState) {
+            return;
+        }
+
+        if (textInput.length() > 0) {
+            firstValue = getInputValue();
+            secondValue = 0;
+
+            switch (operator) {
+                case THIRD_GRADE:
+                    result = Math.pow(firstValue, 3);
+                    break;
+                case SECOND_GRADE:
+                    result = Math.pow(firstValue, 2);
+                    break;
+                case THIRD_ROOT:
+                    result = Math.pow(firstValue, 1 / 3);
+                    break;
+                case SECOND_ROOT:
+                    result = Math.pow(firstValue, 1 / 2);
+                    break;
+                case SIN:
+                    result = Math.sin(firstValue);
+                    break;
+                case COS:
+                    result = Math.cos(firstValue);
+                    break;
+                case TG:
+                    result = Math.tan(firstValue);
+                    break;
+                case CTG:
+                    result = 1.0 / Math.tan(firstValue);
+                    break;
+            }
+            isRepeatableOperation = true;
+            textInput.setText(Double.toString(result));
+        }
     }
 
     public void equalHandler(View view) {
@@ -296,7 +369,91 @@ public class MainActivity extends Activity {
                 operatorHandler(Operators.DIVIDE);
             }
         });
+
+        TextView secondGradeButton = findViewById(R.id.button_second_grade);
+        if(secondGradeButton != null) {
+            secondGradeButton.setText(Html.fromHtml(getString(R.string.button_second_grade)));
+            secondGradeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    operator = Operators.SECOND_GRADE;
+                    instantOperationHandler();
+                }
+            });
+        }
+
+        TextView thirdGradeButton = findViewById(R.id.button_third_grade);
+        if(thirdGradeButton != null) {
+            thirdGradeButton.setText(Html.fromHtml(getString(R.string.button_third_grade)));
+            thirdGradeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    operator = Operators.THIRD_GRADE;
+                    instantOperationHandler();
+                }
+            });
+        }
+
+        if(findViewById(R.id.button_second_root) != null) {
+            findViewById(R.id.button_second_root).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    operator = Operators.SECOND_ROOT;
+                    instantOperationHandler();
+                }
+            });
+        }
+
+        TextView thirdRootButton = findViewById(R.id.button_third_root);
+        if(thirdRootButton != null) {
+            thirdRootButton.setText(Html.fromHtml(getString(R.string.button_third_root)));
+            thirdRootButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    operator = Operators.THIRD_ROOT;
+                    instantOperationHandler();
+                }
+            });
+        }
+
+        if(findViewById(R.id.button_sin) != null) {
+            findViewById(R.id.button_sin).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    operator = Operators.SIN;
+                    instantOperationHandler();
+                }
+            });
+        }
+
+        if(findViewById(R.id.button_cos) != null) {
+            findViewById(R.id.button_cos).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    operator = Operators.COS;
+                    instantOperationHandler();
+                }
+            });
+        }
+
+        if(findViewById(R.id.button_tg) != null) {
+            findViewById(R.id.button_tg).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    operator = Operators.TG;
+                    instantOperationHandler();
+                }
+            });
+        }
+
+        if(findViewById(R.id.button_ctg) != null) {
+            findViewById(R.id.button_ctg).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    operator = Operators.CTG;
+                    instantOperationHandler();
+                }
+            });
+        }
     }
 }
-
-
